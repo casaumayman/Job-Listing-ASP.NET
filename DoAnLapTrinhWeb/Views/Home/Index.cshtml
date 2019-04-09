@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="features-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <h4>Search</h4>
+                    <p>
+                        Nhanh chóng tìm được những công việc hay công ty theo mong muốn!
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <h4>Applying</h4>
+                    <p>
+                        Có thể áp dụng cho nhiều nhà tuyển dụng và ứng cử viên!
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <h4>Security</h4>
+                    <p>
+                        Bảo mật cao, không để lộ thông tin nhạy cảm của khác hàng!
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <h4>Notifications</h4>
+                    <p>
+                        Nhanh chóng nhận thông báo qua mail khi có tin mới!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Start popular post area-->
+@if (ViewBag.Candidate != null)
+{
+    <section class="popular-post-area pt-100">
+        <div class="container">
+            <div class="card">
+                <div class="card-header bg-primary text-white" align="center">
+                    Công việc gợi ý cho bạn
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="active-popular-post-carusel">
+                            @if (ViewBag.Posts != null)
+                            {
+                                foreach (var post in ViewBag.Posts)
+                                {
+                                    <div class="single-popular-post d-flex flex-row">
+                                        <div class="thumb">
+                                            @foreach (var employer in ViewBag.Employers)
+                                            {
+                                                if (post.Id_Employer == employer.Id_Employer)
+                                                {
+                                                    <img class="img-fluid" style="width: 120px" src="@employer.ImgLogo" alt="">
+                                                    break;
+                                                }
+                                            }
+                                            <a class="btns text-uppercase" href="/Post/Details/@(post.Id_Post)">Chi tiết</a>
+                                        </div>
+                                        <div class="details">
+                                            <a href="/Post/Details/@(post.Id_Post)"><h4>@post.Title</h4></a>
+                                            @foreach (var employer in ViewBag.Employers)
+                                            {
+                                                if (post.Id_Employer == employer.Id_Employer)
+                                                {
+                                                    <h6>@employer.CompanyName</h6>
+                                                    break;
+                                                }
+                                            }
+                                            <p>
+                                                @post.Description
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

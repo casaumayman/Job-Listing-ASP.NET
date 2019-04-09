@@ -1,0 +1,77 @@
+﻿@model DoAnLapTrinhWeb.ViewModel.FormEmployer
+
+@{
+    ViewBag.Title = "Đăng ký với tư cách nhà tuyển dụng";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+}
+
+@if (ViewBag.Err != null)
+{
+    <div class="alert alert-danger" role="alert">@ViewBag.Err</div>
+}
+
+@using (Html.BeginForm("SignUp", "Employer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <br>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6">Tên công ty</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CompanyName, new { htmlattributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Email</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Địa chỉ</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Ảnh đại diện</label>
+                    <div class="col-md-10">
+                        <input type="file" id="ImgLogo" name="ImgLogo" class="form-control-file" value="tải lên" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6">Tên tài khoản</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Mật khẩu</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" id="Password" name="Password" type="password" value="">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Nhập lại mật khẩu</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" id="RePassword" name="RePassword" type="password" value="">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div style="width: 50%; margin-left:25%" class="form-group">
+                <button type="submit" style="width: 100%" class="genric-btn info-border circle">Đăng ký</button>
+            </div>
+        </div>
+    </div>
+}

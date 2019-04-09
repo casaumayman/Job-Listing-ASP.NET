@@ -1,0 +1,96 @@
+﻿@model DoAnLapTrinhWeb.Models.Post
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Post</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DatePost)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DatePost)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Require)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Require)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Benefit)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Benefit)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Salary)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Salary)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Id_Employer)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Id_Employer)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Id_Specialization)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Id_Specialization)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

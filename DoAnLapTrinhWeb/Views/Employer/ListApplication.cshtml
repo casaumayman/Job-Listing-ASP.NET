@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Danh sách ứng cử viên nộp đơn";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-secondary text-white" align="center">
+            Có @ViewBag.JobApplications.Count ứng cử viên đã nộp đơn
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="text-align:center">
+                        <th>Họ và tên</th>
+                        <th>Tuổi</th>
+                        <th>Giới tính</th>
+                        <th>Trường</th>
+                        <th>Vị trí ứng tuyển</th>
+                        <th>Xem thêm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var JobApplication in ViewBag.JobApplications)
+                    {
+                        foreach (var Candidate in ViewBag.Candidates)
+                        {
+                            if (Candidate.Id_Candidate == JobApplication.Id_Candidate)
+                            {
+                                <tr>
+                                    <td>@Candidate.Name</td>
+                                    <td>@(DateTime.Now.Year - Candidate.YearBorn)</td>
+                                    <td>@(Candidate.Gender ? "Nam" : "Nữ")</td>
+                                    @foreach (var item in ViewBag.Schools)
+                                    {
+                                        if (item.Id == Candidate.Id_School)
+                                        {
+                                            <td>@item.Name</td>
+                                            break;
+                                        }
+                                    }
+                                    @foreach (var item in ViewBag.Specializations)
+                                    {
+                                        if (item.Id_Specialization == Candidate.Id_Specialization)
+                                        {
+                                            <td>@item.Name</td>
+                                            break;
+                                        }
+                                    }
+                                    <td>
+                                        <a href="/Candidate/Details/@(Candidate.Id_Candidate)" type="button" class="btn btn-success">Chi tiết</a>
+                                    </td>
+                                </tr>
+                                break;
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

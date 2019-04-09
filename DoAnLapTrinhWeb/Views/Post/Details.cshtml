@@ -1,0 +1,57 @@
+﻿@model DoAnLapTrinhWeb.Models.Post
+
+@{
+    ViewBag.Title = "Chi tiết bài đăng";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+}
+
+<div class="container">
+    <div class="justify-content-center d-flex">
+        <div class="post-list">
+            <div class="single-post d-flex flex-row">
+                <div class="thumb" style="margin-right: 10px; margin-left: auto">
+                    <img src=@ViewBag.Employer.ImgLogo width="200" alt="">
+                </div>
+                <div class="details">
+                    <div class="title d-flex flex-row justify-content-between">
+                        <div class="titles">
+                            <a href="#"><h4>@ViewBag.Post.Title</h4></a>
+                            <h4>@ViewBag.ViewPost.Name_Specialization</h4>
+                            <h6>@ViewBag.Employer.Email</h6>
+                            <h6>Công ty: @ViewBag.Employer.CompanyName</h6>
+                        </div>
+                        @if (Session["Candidate"] != null && !ViewBag.Err)
+                        {
+                            <ul class="btns">
+                                <li><a id="myBtn" href="/Candidate/JobApplication/@(ViewBag.Employer.Id_Employer)">Ứng tuyển ngay</a></li>
+                            </ul>
+                        }
+                    </div>
+                    <p>
+                        ___________________________________________________________________________________________________________
+                    </p>
+                    <p class="address"><span class="lnr lnr-map"></span> @ViewBag.Employer.Address</p>
+                    <p class="address"><span class="lnr lnr-database"></span> @ViewBag.Post.Salary $</p>
+                </div>
+            </div>
+            <div class="single-post job-details">
+                <h4 class="single-title">Mô tả công việc</h4>
+                <p>
+                    @ViewBag.Post.Description
+                </p>
+            </div>
+            <div class="single-post job-experience">
+                <h4 class="single-title">Yêu cầu ứng cử viên</h4>
+                <p>
+                    @ViewBag.Post.Require
+                </p>
+            </div>
+            <div class="single-post job-experience">
+                <h4 class="single-title">Quyền lợi khi làm việc tại đây</h4>
+                <p>
+                    @ViewBag.Post.Benefit
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

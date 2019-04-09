@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Tạo bài đăng";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-10">
+                    <input type="text" name="Title" placeholder="Tiêu đề" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tiêu đề'" required class="single-input">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mt-10">
+                    <textarea name="Description" class="single-textarea" placeholder="Mô tả" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mô tả'" required></textarea>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mt-10">
+                    <textarea name="Require" class="single-textarea" placeholder="Yêu cầu" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Yêu cầu'" required></textarea>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mt-10">
+                    <textarea name="Benefit" class="single-textarea" placeholder="Lợi ích" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Lợi ích'" required></textarea>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="mt-10 mb-10">
+                    <input type="number" name="Salary" placeholder="Lương ($)" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Lương ($)'" required class="single-input-accent">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="default-select mt-10 mb-10" id="default-select">
+                    <select name="Id_Specialization">
+                        <option selected disabled hidden>Chọn vị trí tuyển dụng</option>
+                        @foreach (var item in ViewBag.list)
+                        {
+                            <option value=@item.Id_Specialization>@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <div style="width: 50%; margin-left:25%" class="form-group">
+                    <button type="submit" style="width: 100%" class="genric-btn info circle">Đăng bài</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

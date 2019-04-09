@@ -1,0 +1,72 @@
+﻿@model DoAnLapTrinhWeb.Models.Post
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                @Html.HiddenFor(m => m.Id_Employer);
+                @Html.HiddenFor(m => m.Id_Post);
+                @Html.HiddenFor(m => m.DatePost);
+                <div class="mt-10">
+                    <input type="text" name="Title" value="@Model.Title" placeholder="Tiêu đề" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tiêu đề'" required class="single-input">
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mt-10">
+                    <textarea name="Description" class="single-textarea" placeholder="Mô tả" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mô tả'" required>@Model.Description</textarea>
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mt-10">
+                    <textarea name="Require" class="single-textarea" placeholder="Yêu cầu" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Yêu cầu'" required>@Model.Require</textarea>
+                    @Html.ValidationMessageFor(model => model.Require, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mt-10">
+                    <textarea name="Benefit" class="single-textarea" placeholder="Lợi ích" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Lợi ích'" required>@Model.Benefit</textarea>
+                    @Html.ValidationMessageFor(model => model.Benefit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="mt-10 mb-10">
+                    <input type="number" name="Salary" value=@Model.Salary placeholder="Lương ($)" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Lương ($)'" required class="single-input-accent">
+                    @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="default-select mt-10 mb-10" id="default-select">
+                    <select name="Id_Specialization">
+                        @foreach (var item in ViewBag.list)
+                        {
+                            if (item.Id_Specialization == Model.Id_Specialization)
+                            {
+                                <option selected="selected" value=@item.Id_Specialization>@item.Name</option>}
+                            else
+                            {
+                                <option value=@item.Id_Specialization>@item.Name</option>}
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <div style="width: 50%; margin-left:25%" class="form-group">
+                    <button type="submit" style="width: 100%" class="genric-btn info circle">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,113 @@
+﻿@model DoAnLapTrinhWeb.ViewModel.FormCandidate
+@{
+    ViewBag.Title = "Đăng ký với tư cách ứng cử viên";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+}
+
+@if (ViewBag.Err != null)
+{
+    <div class="alert alert-danger" role="alert">@ViewBag.Err</div>
+}
+
+@using (Html.BeginForm("SignUp", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <br>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6">Họ và tên</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlattributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Năm sinh</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.YearBorn, new { htmlattributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-6 inline-flex">Giới tính</label>
+                    <div class="default-select inline-flex" id="default-select">
+                        <select name="Gender">
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Số điện thoại</label>
+                    <div class="col-md-10">
+                        <input type="number" name="PhoneNumber" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Đã học ở: </label>
+                    <div class="default-select inline-flex">
+                        <select name="Id_School">
+                            @foreach (var item in ViewBag.list)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Vị trí ứng tuyển: </label>
+                    <div class="default-select inline-flex">
+                        <select name="Id_Specialization">
+                            @foreach (var item in ViewBag.list2)
+                            {
+                                <option value="@item.Id_Specialization">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6">Tên tài khoản</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Mật khẩu</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" id="Password" name="Password" type="password" value="">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Nhập lại mật khẩu</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" id="RePassword" name="RePassword" type="password" value="">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Email</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" name="Email" type="text" value="">
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-6">Upload CV</label>
+                    <div class="col-md-10">
+                        <input type="file" id="CV" name="CV" class="form-control-file" />
+                    </div>
+                </div>
+            </div>
+            <div style="width: 50%; margin-left:25%" class="form-group">
+                <button type="submit" style="width: 100%" class="genric-btn info circle">Đăng ký</button>
+            </div>
+        </div>
+    </div>
+}

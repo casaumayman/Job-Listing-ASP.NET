@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Danh sách các bài đăng";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+    int i = 0;
+}
+
+<div class="container">
+    <a href="/Post/Create" class="genric-btn info circle arrow mt-10 mb-10">Thêm bài đăng<span class="lnr lnr-arrow-right"></span></a>
+    <table class="table table-bordered">
+        <tr style="text-align: center">
+            <th>
+                STT
+            </th>
+            <th>
+                Ngày đăng
+            </th>
+            <th>
+                Tiêu đề
+            </th>
+            <th>
+                Vị trí tuyển dụng
+            </th>
+            <th>
+                Thao tác
+            </th>
+        </tr>
+        @foreach (var item in ViewBag.List)
+        {
+            i++;
+            <tr>
+                <td style="text-align: center">
+                    @i
+                </td>
+                <td style="text-align: center">
+                    @item.DatePost.ToString("dd-MM-yyyy")
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td style="text-align: center">
+                    @item.Name_Specialization
+                </td>
+                <td style="text-align: center">
+                    @{ 
+                        string link = "/Post/Delete/"+item.Id_Post.ToString();
+                    }
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id_Post}, new {@class= "btn btn-primary" })
+                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id_Post }, new { @class = "btn btn-warning" })
+                    <a class="btn btn-danger" href="@link">Xóa</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

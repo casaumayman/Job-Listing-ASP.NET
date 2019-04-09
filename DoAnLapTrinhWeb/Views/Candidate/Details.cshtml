@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+    var info = ViewBag.candidate;
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary text-white" align="center">
+            @info.Name
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h3 style="display: inline">Số điện thoại: </h3>
+                    <h3 style="display: inline">@info.PhoneNumber</h3>
+                </li>
+                <li class="list-group-item">
+                    <h3 style="display: inline">Giới tính: </h3>
+                    @if (info.Gender)
+                    {
+                        <h3 style="display: inline">Nam</h3>
+                    }
+                    else
+                    {
+                        <h3 style="display: inline">Nữ</h3>
+                    }
+                </li>
+                <li class="list-group-item">
+                    <h3 style="display: inline">Tuổi: </h3>
+                    <h3 style="display: inline">@(DateTime.Now.Year - info.YearBorn)</h3>
+                </li>
+                <li class="list-group-item">
+                    <h3 style="display: inline">Email: </h3>
+                    <h3 style="display: inline">@info.Email</h3>
+                </li>
+                <li class="list-group-item">
+                    <h3 style="display: inline">Trường: </h3>
+                    <h3 style="display: inline">@ViewBag.school </h3>
+                </li>
+                <li class="list-group-item">
+                    <h3 style="display: inline">Vị trí ứng tuyển: </h3>
+                    <h3 style="display: inline">@ViewBag.Specialization</h3>
+                </li>
+                <li class="list-group-item">
+                    <h3 style="display: inline">Curriculum Vitae: </h3>
+                    @if (info.CVLink != null)
+                    {
+                        string FileName = info.CVLink.Substring(info.CVLink.LastIndexOf("/") + 1);
+                        <a href="@info.CVLink" download="@FileName" type="button" class="btn btn-success">Tải xuống</a>
+                    }
+                    else
+                    {
+                        <h3 style="display: inline">Chưa tải lên CV</h3>
+                    }
+                </li>
+            </ul>
+        </div>
+        @if(Session["Candidate"] != null)
+        {
+            DoAnLapTrinhWeb.Models.Candidate candidate = new DoAnLapTrinhWeb.Models.Candidate();
+            candidate = (DoAnLapTrinhWeb.Models.Candidate)Session["Candidate"];
+            if (candidate.Id_Candidate == info.Id_Candidate)
+            {
+                <div class="card-footer" style="text-align: center">
+                    <a href="/Candidate/Edit/@info.Id_Candidate" type="button" class="btn btn-success">Cập nhật thông tin</a>
+                </div>
+            }
+        }
+    </div>
+</div>

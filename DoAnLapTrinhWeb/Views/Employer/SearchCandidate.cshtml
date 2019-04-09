@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "SearchCandidate";
+    Layout = "~/Views/Shared/_SearchLayout.cshtml";
+}
+
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row search-page-top d-flex align-items-center justify-content-center">
+            <div class="banner-content col-lg-12">
+                <h1 class="text-white">
+                    Tìm kiếm ứng cử viên
+                </h1>
+                <form action="/Employer/SearchCandidate" method="post" class="serach-form-area">
+                    <div class="row justify-content-center form-wrap">
+                        <div class="col-lg-3 form-cols">
+                            <div class="default-select" id="default-select">
+                                <select name="Id_School">
+                                    <option selected="selected" value="-1" disabled>Chọn trường</option>
+                                    <option value="All">Tất cả trường</option>
+                                    @foreach (var item in ViewBag.Schools)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 form-cols">
+                            <div class="default-select" id="default-select2">
+                                <select name="Id_Specialization">
+                                    <option value="-1" disabled selected="selected">Vị trí ứng tuyển</option>
+                                    <option value="All">Tất cả vị trí</option>
+                                    @foreach (var item in ViewBag.Specializations)
+                                    {
+                                        <option value="@item.Id_Specialization">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 form-cols">
+                            <button type="submit" class="btn btn-info">
+                                <span class="lnr lnr-magnifier"></span> Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@if (ViewBag.Candidates != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-secondary text-white" align="center">
+                Tìm thấy @ViewBag.Candidates.Count kết quả
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr style="text-align:center">
+                            <th>Họ và tên</th>
+                            <th>Tuổi</th>
+                            <th>Giới tính</th>
+                            <th>Trường</th>
+                            <th>Vị trí ứng tuyển</th>
+                            <th>Xem thêm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Candidate in ViewBag.Candidates)
+                        {
+                        <tr>
+                            <td>@Candidate.Name</td>
+                            <td>@(DateTime.Now.Year - Candidate.YearBorn)</td>
+                            <td>@(Candidate.Gender ? "Nam" : "Nữ")</td>
+                            @foreach (var item in ViewBag.Schools)
+                            {
+                                if (item.Id == Candidate.Id_School)
+                                {
+                                    <td>@item.Name</td>
+                                    break;
+                                }
+                            }
+                            @foreach (var item in ViewBag.Specializations)
+                            {
+                                if (item.Id_Specialization == Candidate.Id_Specialization)
+                                {
+                                    <td>@item.Name</td>
+                                    break;
+                                }
+                            }
+                            <td>
+                                <a href="/Candidate/Details/@(Candidate.Id_Candidate)" type="button" class="btn btn-success">Chi tiết</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+

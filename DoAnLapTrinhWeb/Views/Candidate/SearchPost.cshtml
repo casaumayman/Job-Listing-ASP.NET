@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Tìm kiếm công việc";
+    Layout = "~/Views/Shared/_SearchLayout.cshtml";
+    int i = 0;
+}
+
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row search-page-top d-flex align-items-center justify-content-center">
+            <div class="banner-content col-lg-12">
+                <h1 class="text-white">
+                    Tìm kiếm công việc
+                </h1>
+                <form action="/Candidate/SearchPost" method="post" class="serach-form-area">
+                    <div class="row justify-content-center form-wrap">
+                        <div class="col-lg-3 form-cols">
+                            <div class="default-select" id="default-selects">
+                                <select name="Id_Specialization">
+                                    <option disabled selected="selected">Vị trí tuyển dụng</option>
+                                    <option value="All">Tất cả vị trí</option>
+                                    @foreach (var item in ViewBag.Specializations)
+                                    {
+                                        <option value="@item.Id_Specialization">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 form-cols">
+                            <input type="number" class="form-control" name="salary" placeholder="Lương tối thiểu ($)">
+                        </div>
+                        <div class="col-lg-2 form-cols">
+                            <button type="submit" class="btn btn-info">
+                                <span class="lnr lnr-magnifier"></span> SEARCH
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@if (ViewBag.Posts != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-secondary text-white" align="center">
+                Tìm thấy @ViewBag.Posts.Count kết quả
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr style="text-align: center">
+                        <th>
+                            STT
+                        </th>
+                        <th>
+                            Ngày đăng
+                        </th>
+                        <th>
+                            Tiêu đề
+                        </th>
+                        <th>
+                            Vị trí tuyển dụng
+                        </th>
+                        <th>
+                            Lương
+                        </th>
+                        <th>
+                            Chi tiết
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.Posts)
+                    {
+                        i++;
+                        <tr>
+                            <td style="text-align: center">
+                                @i
+                            </td>
+                            <td style="text-align: center">
+                                @item.DatePost.ToString("dd-MM-yyyy")
+                            </td>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td style="text-align: center">
+                                @foreach (var Specialization in ViewBag.Specializations)
+                                {
+                                    if (Specialization.Id_Specialization == item.Id_Specialization)
+                                    {
+                                        @Specialization.Name
+                                        break;
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @item.Salary
+                            </td>
+                            <td style="text-align: center">
+                                <a href="/Post/Details/@(item.Id_Post)" type="button" class="btn btn-success">Chi tiết</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Sửa thông tin cá nhân";
+    Layout = "~/Views/Shared/LayoutSingle.cshtml";
+    DoAnLapTrinhWeb.ViewModel.FormCandidate info = ViewBag.candidate;
+}
+
+
+@using (Html.BeginForm("Edit", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="text" name="Id_Candidate" value="@info.Id_Candidate" hidden/>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="30%">Thuộc Tính</th>
+                            <th>Giá Trị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Họ và tên</td>
+                            <td>
+                                <input name="Name" value="@info.Name" class="form-control" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại</td>
+                            <td>
+                                <input name="PhoneNumber" value="@info.PhoneNumber" class="form-control" type="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Giới tính</td>
+                            <td>
+                                <div class="default-select inline-flex" id="default-select">
+                                    <select name="Gender">
+                                        @if (info.Gender == "male")
+                                        {
+                                            <option value="male" selected="selected">Nam</option>
+                                            <option value="female">Nữ</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="male">Nam</option>
+                                            <option value="female" selected="selected">Nữ</option>
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Năm sinh</td>
+                            <td>
+                                <input name="YearBorn" value="@info.YearBorn" class="form-control" type="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>
+                                <input name="Email" value="@info.Email" class="form-control" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Trường học</td>
+                            <td>
+                                <div class="default-select inline-flex">
+                                    <select name="Id_School">
+                                        @foreach (var item in ViewBag.Schools)
+                                        {
+                                            if (item.Id.ToString() == info.Id_School)
+                                            {
+                                                <option value="@item.Id" selected="selected">@item.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Vị trí ứng tuyển</td>
+                            <td>
+                                <div class="default-select inline-flex">
+                                    <select name="Id_Specialization">
+                                        @foreach (var item in ViewBag.Specializations)
+                                        {
+                                            if (item.Id_Specialization.ToString() == info.Id_Specialization)
+                                            {
+                                                <option value="@item.Id_Specialization" selected="selected">@item.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id_Specialization">@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>File CV</td>
+                            <td>
+                                <input name="CV" class="form-control" type="file" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer" style="text-align: center">
+                <button type="submit" class="btn btn-success">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+}
+

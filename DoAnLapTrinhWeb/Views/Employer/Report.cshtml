@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Thống kê số lượng ứng cử viên nộp đơn";
+    Layout = "~/Views/Shared/_SearchLayout.cshtml";
+}
+
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row search-page-top d-flex align-items-center justify-content-center">
+            <div class="banner-content col-lg-12">
+                <h1 class="text-white">
+                    Thống kê số lượng ứng cử viên nộp đơn theo năm
+                </h1>
+                <form action="/Employer/Report" method="post" class="serach-form-area">
+                    <div class="row justify-content-center form-wrap">
+                        <div class="col-lg-4 form-cols">
+                            <input type="number" class="form-control" name="year" value="@(ViewBag.Year)" placeholder="Nhập năm cần thống kê">
+                        </div>
+                        <div class="col-lg-2 form-cols">
+                            <button type="submit" class="btn btn-info">
+                                <span class="lnr lnr-magnifier"></span> Thống kê
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary text-white" align="center">
+            Có tất cả @ViewBag.Total lượt nộp đơn trong năm @ViewBag.Year
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="text-align:center">
+                        <th>Tháng</th>
+                        <th>Số lượt nộp đơn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(int i = 0; i < 12; i++)
+                    {
+                        <tr>
+                            <td style="text-align:center">@(i+1)</td>
+                            <td style="text-align:center">@ViewBag.Arr[i]</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

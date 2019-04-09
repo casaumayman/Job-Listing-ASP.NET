@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Tìm kiếm nhà tuyển dụng";
+    Layout = "~/Views/Shared/_SearchLayout.cshtml";
+    DoAnLapTrinhWeb.Models.Candidate candidate = new DoAnLapTrinhWeb.Models.Candidate();
+    candidate = (DoAnLapTrinhWeb.Models.Candidate)Session["Candidate"];
+    int i = 0;
+}
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row search-page-top d-flex align-items-center justify-content-center">
+            <div class="banner-content col-lg-12">
+                <h1 class="text-white">
+                    Tìm kiếm nhà tuyển dụng
+                </h1>
+                <form action="/Candidate/SearchEmployer" method="post" class="serach-form-area">
+                    <div class="row justify-content-center form-wrap">
+                        <div class="col-lg-4 form-cols">
+                            <input type="text" class="form-control" name="name" placeholder="Nhập tên công ty cần tìm">
+                        </div>
+                        <div class="col-lg-2 form-cols">
+                            <button type="submit" class="btn btn-info">
+                                <span class="lnr lnr-magnifier"></span> SEARCH
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@if (ViewBag.Employers != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-secondary text-white" align="center">
+                Tìm thấy @ViewBag.Employers.Count kết quả
+            </div>
+            <div class="card-body">
+                <div class="post-list">
+                    @foreach (var Employer in ViewBag.Employers)
+                    {
+                        <div class="single-post d-flex flex-row">
+                            <div class="thumb">
+                                <img src="@Employer.ImgLogo" style="width: 160px; margin-right: 15px" alt="">
+                            </div>
+                            <div class="details">
+                                <div class="title d-flex flex-row justify-content-between">
+                                    <div class="titles">
+                                        <a href="single.html"><h4>@Employer.CompanyName</h4></a>
+                                        <h6>@Employer.Email</h6>
+                                    </div>
+                                    @if (candidate != null)
+                                    {
+                                    <ul class="btns">
+                                        @if (ViewBag.Err[i])
+                                        {
+                                            <li><a href="/Candidate/Follow/@(Employer.Id_Employer)">Theo dõi</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/Candidate/UnFollow/@(Employer.Id_Employer)">Bỏ Theo dõi</a></li>
+                                        }
+                                    </ul>
+                                    }
+                                </div>
+                                <p>
+                                    _________________________________________________________________________________________________
+                                </p>
+                                <h5 class="address"><span class="lnr lnr-map"></span> @Employer.Address</h5>
+                            </div>
+                        </div>
+                        i++;
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
